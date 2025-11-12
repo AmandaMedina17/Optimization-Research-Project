@@ -233,6 +233,6 @@ def plot_results(step_results: List[Dict], point_results: List[Dict]):
     
     plt.tight_layout()
     plt.savefig('analisis_maximo_descenso.png', dpi=300, bbox_inches='tight')
-    plt.show()
+    #plt.show()
     
     print("Gráficas generadas y guardadas como 'analisis_maximo_descenso.png'")

@@ -13,7 +13,7 @@ def grad_f(x: float, y: float) -> np.ndarray:
     df_dy = 2*y + 0.48*np.pi*np.cos(3*np.pi*x)*np.sin(4*np.pi*y)
     return np.array([df_dx, df_dy])
 
-def gradient_descent(x0: float, y0: float, alpha: float = 0.1, 
+def gradient_descent(x0: float, y0: float, alpha: float = 0.5, 
                    max_iter: int = 1000, tol: float = 1e-6) -> Tuple[float, float, float, int, bool]:
     #Implementación del Método de Máximo Descenso
     x, y = x0, y0

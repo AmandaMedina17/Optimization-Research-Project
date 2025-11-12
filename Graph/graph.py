@@ -23,4 +23,8 @@ ax.set_ylabel('y')
 ax.set_zlabel('f(x,y)')
 ax.view_init(elev=30, azim=45)
 
+plt.savefig('objective function.png', dpi=300, bbox_inches='tight', 
+            facecolor='white', edgecolor='none')
+
+
 plt.show()

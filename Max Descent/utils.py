@@ -16,36 +16,53 @@ def is_successful_convergence(f_final: float, iterations: int, max_iter: int = 1
     #Determina si la convergencia fue exitosa basada en el resultado final
     return abs(f_final - 0.18) < 0.01 or iterations < max_iter
 
-def get_evaluation_status(iterations: int, f_final: float, successful: bool) -> str:
+def classify_convergence(f_final: float, converged: bool, tol: float = 0.001) -> str:
+    #Clasifica el tipo de convergencia:
+    #- Mínimo global: f ≈ 0.18
+    #- Mínimo local: convergió pero no al global
+    #- No convergió: no alcanzó criterio de convergencia
+    if not converged:
+        return "No convergió"
+    
+    if abs(f_final - 0.18) < tol:
+        return "Mínimo global"
+    else:
+        return "Mínimo local"
+
+def get_evaluation_status(iterations: int, f_final: float, successful: bool, converged: bool) -> str:
     #Determina el estado de evaluación basado en resultados reales
     if not successful:
         return "Divergencia"
     
+    convergence_type = classify_convergence(f_final, converged)
+    
     if iterations <= 10:
-        return "Muy rápido"
+        return f"Muy rápido ({convergence_type})"
     elif iterations <= 20:
-        return "Excelente"
+        return f"Excelente ({convergence_type})"
     elif iterations <= 30:
-        return "Óptimo"
+        return f"Óptimo ({convergence_type})"
     elif iterations <= 50:
-        return "Bueno"
+        return f"Bueno ({convergence_type})"
     elif iterations <= 100:
-        return "Convergencia lenta"
+        return f"Convergencia lenta ({convergence_type})"
     else:
-        return "Lento, inestable"
+        return f"Lento, inestable ({convergence_type})"
 
-def get_point_evaluation(iterations: int, successful: bool) -> str:
+def get_point_evaluation(iterations: int, successful: bool, f_final: float, converged: bool) -> str:
     #Determina la evaluación para puntos iniciales
     if not successful:
         return "Divergencia"
     
+    convergence_type = classify_convergence(f_final, converged)
+    
     if iterations <= 12:
-        return "Muy rápido"
+        return f"Muy rápido ({convergence_type})"
     elif iterations <= 18:
-        return "Excelente"
+        return f"Excelente ({convergence_type})"
     elif iterations <= 25:
-        return "Óptimo"
+        return f"Óptimo ({convergence_type})"
     elif iterations <= 35:
-        return "Bueno"
+        return f"Bueno ({convergence_type})"
     else:
-        return "Aceptable"
+        return f"Aceptable ({convergence_type})"
